@@ -20,18 +20,22 @@ static class MultiThreadTest
         //それぞれのプログラムをコメントアウトを外して実行すること。
 
 
-        //テスト1： RACE CONDITION(コロプラ面接対策)
+        //テスト1： RACE CONDITION 01 (コロプラ面接対策)
         //          {coreNum}回ListやQueueに配列を格納するプログラム。
         //          Listなどをマルチスレッドで操作するプログラムはあまり書かないが、気が付いたらそのような実装になってしまっていることもある。
         //          それぞれのプログラムがどのような結果になるかを確認してみよう。
-        //          また、それぞれの関数がどのように違うのか、どう変えると問題が解決するのかを推察する事。テスト2は少し変えると挙動が変化する。
+        //          また、それぞれの関数がどのように違うのか、どう変えると問題が解決するのかを推察する事。プログラムの内容を少し変えると挙動が変化する。
+        //          余談だがコロプラの現場面接では、馬鹿の一つ覚えみたいに毎回これを聞かれるらしい
 
         //プログラム
         //TestProgram01.RunBad(coreNum);
         //TestProgram01.RunOK(coreNum);
 
+        //パフォーマンス
+        //using (new PerformanceCounter("TestProgram01-Single").Start()) TestProgram01.RunSingle(coreNum);
+        //using (new PerformanceCounter("TestProgram01-MultiThread").Start()) TestProgram01.RunOK(coreNum);
 
-        //テスト2： DAMAGE RACE (競合のゲーム的な実装)
+        //テスト2： RACE CONDITION 02 (競合のゲーム的な実装)
         //          ボスを{coreNum}人で攻撃するプログラム。ネットワークゲームなどで見られる実装となる。
         //          それぞれのプログラムがどのような結果になるかを確認してみよう。
         //          その後、第二引数をtrueにして動きをより詳細に確認してみよう。
@@ -41,12 +45,17 @@ static class MultiThreadTest
         //TestProgram02.RunBad(coreNum, false);
         //TestProgram02.RunOK(coreNum, false);
 
+        //パフォーマンス
+        //using (new PerformanceCounter("TestProgram02-Single").Start()) TestProgram02.RunSingle(coreNum);
+        //using (new PerformanceCounter("TestProgram02-MultiThread").Start()) TestProgram02.RunOK(coreNum,false);
+
 
         //テスト3： DEAD LOCK
         //          ボスとプレイヤーを{coreNum}人で対決させるプログラム。ネットワークゲームなどで見られる実装となる。
         //          それぞれのプログラムがどのような結果になるかを確認してみよう。(※停止するのは正常)
         //          その後、第二引数をtrueにして動きをより詳細に確認してみよう。
         //          また、それぞれの関数がどのように違うのか、どう変えると問題が解決するのかを推察する事。
+        //          余談だが両者がとにかく殴り続け、先に相手のHPを0に出来るかを競うことをダメージレースと言う。
 
         //プログラム
         //TestProgram03.RunBad(coreNum, true);
@@ -154,7 +163,7 @@ static class MultiThreadTest
 
             // 経過時間をナノ秒に変換
             _elapsedNanoseconds = _stopwatch.ElapsedTicks * nanosecondsPerTick;
-            Console.WriteLine($"{_message} - 処理時間(ナノ秒): {_elapsedNanoseconds} ns");
+            Console.WriteLine($"{_message} - 処理時間(ナノ秒/ミリ秒): {_elapsedNanoseconds} ns / {_stopwatch.ElapsedMilliseconds} ms");
         }
 
         public void Dispose()

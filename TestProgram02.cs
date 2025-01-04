@@ -8,6 +8,15 @@ class TestProgram02
     static bool IsShowMsg = false;
 
     /// <summary>
+    /// シングルスレッドでの動作
+    /// NOTE: パフォーマンスを見てみよう。
+    /// </summary>
+    static public void RunSingle(int coreNum)
+    {
+        BossAttackMultiThread(0);
+    }
+
+    /// <summary>
     /// 問題が起きる処理。どのように問題が起きるかは出力から確認する事。
     /// </summary>
     /// <param name="coreNum">スレッド生成数。≒PCのコア数に合わせるとよい</param>

@@ -11,6 +11,16 @@ class TestProgram03
     static bool IsShowMsg = false;
 
     /// <summary>
+    /// シングルスレッドでの動作
+    /// NOTE: このテストはシングルスレッド化することはできない。
+    /// </summary>
+    static public void RunSingle(int coreNum)
+    {
+        throw new NotImplementedException();
+    }
+
+
+    /// <summary>
     /// 問題が起きる処理。どのように問題が起きるかは出力から確認する事。
     /// </summary>
     /// <param name="coreNum">スレッド生成数。≒PCのコア数に合わせつつ、偶数で実行すること</param>

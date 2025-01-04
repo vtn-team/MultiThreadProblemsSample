@@ -27,6 +27,16 @@ static class TestProgram04
     static int TestDataC_Value1;
     static int TestDataC_Value2;
 
+
+    /// <summary>
+    /// シングルスレッドでの動作
+    /// NOTE: このテストはシングルスレッド化する意味がないので除外
+    /// </summary>
+    static public void RunSingle(int coreNum)
+    {
+        throw new NotImplementedException();
+    }
+
     //スレッドを作り処理を走らせる
     static Thread[] threads;
 

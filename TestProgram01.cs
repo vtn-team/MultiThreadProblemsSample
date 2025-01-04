@@ -6,6 +6,21 @@
 static class TestProgram01
 {
     /// <summary>
+    /// シングルスレッドでの動作
+    /// </summary>
+    static public void RunSingle(int coreNum)
+    {
+        for (int i = 0; i < coreNum; ++i)
+        {
+            AddQueueMethod();
+        }
+
+        //結果発表
+        Console.WriteLine("ListのCountは:" + queueTest.Count);
+        Console.WriteLine("QueueのCountは:" + queueTest.Count);
+    }
+
+    /// <summary>
     /// 問題が起きる処理。どのように問題が起きるかは出力から確認する事。
     /// </summary>
     /// <param name="coreNum">スレッド生成数。≒PCのコア数に合わせるとよい</param>
